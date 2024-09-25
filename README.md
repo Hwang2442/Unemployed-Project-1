@@ -2,7 +2,7 @@
 
 ### Reference
 
-![image.png](image.png)
+[Reference Image](./ReferenceImage.png)
 
 [카카오톡게임 모두의게임](https://youtu.be/LpPaWQskAOA)
 
