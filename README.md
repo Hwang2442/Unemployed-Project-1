@@ -1,15 +1,10 @@
 # Unemployed-Project-1
 
 ### Reference
-
-[Reference Image](./ReferenceImage.png)
-
-[카카오톡게임 모두의게임](https://youtu.be/LpPaWQskAOA)
-
+[![모두의 게임 by Kakao](./ReferenceImage.png)](https://youtu.be/LpPaWQskAOA)
 ---
 
 ### Rules
-
 - **1 day - 1 commit**
     - 주석이라도 상관없음
 - **Weekly**
