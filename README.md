@@ -2,6 +2,8 @@
 
 ### Reference
 [![모두의 게임 by Kakao](./ReferenceImage.png)](https://youtu.be/LpPaWQskAOA)
+![두더지 게임](./Mole_Game_1.png)
+![두더지 게임](./Mole_Game_2.png)
 ---
 
 ### Rules
