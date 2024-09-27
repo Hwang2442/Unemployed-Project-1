@@ -28,6 +28,16 @@ public class MoleHoleSpawnManager : MonoBehaviour
 
     private int activeMolesCount = 0;
 
+
+
+
+    private Vector2 startPosition = new Vector2(0f, -2.56f);
+    private Vector2 endPosition = Vector2.zero;
+
+    [SerializeField]
+    private float showDuration = 1f;
+
+
     public static MoleHoleSpawnManager Instance { get; private set; }
 
     private void Start()
@@ -44,10 +54,6 @@ public class MoleHoleSpawnManager : MonoBehaviour
     {
         while (true)
         {
-            if (MoleGameManager.Instance.gs != GameState.Play)
-            {
-               // 추가 예정
-            }
 
             //랜덤 두더지 스폰 시간
             float randomSpawnTime = Random.Range(minSpawnTime, maxSpawnTime);
@@ -59,13 +65,13 @@ public class MoleHoleSpawnManager : MonoBehaviour
 
                 activeMolesCount++;
 
-                moleHole.ShowMole();
+                //moleHole.ShowMole();
 
                 float randomActiveTime = Random.Range(minMoleActiveTime, maxMoleActiveTime);
 
                 yield return new WaitForSeconds(randomActiveTime);
 
-                moleHole.HideMole();
+                //moleHole.HideMole();
 
                 activeMolesCount--;
             }

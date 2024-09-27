@@ -18,119 +18,88 @@ public enum GameState
 ///</summary>
 public class MoleGameManager : MonoBehaviour
 {
-    public TextMeshProUGUI gameScoreUI;
-    //public Text GameTime;
-
-    //public Text GameStart;
-    //public Text GameEnd;
-
     [SerializeField]
-    TextMeshProUGUI timeText;
+    private List<MoleHole> moles;
+
+
+    //UIController 제작 예정
+    [Header("UI objects")]
     [SerializeField]
-    float timer = 60f;
+    private GameObject playButton;
     [SerializeField]
-    bool isTimerRunning = false;
+    private TextMeshProUGUI timeText;
     [SerializeField]
-    Slider timerSlider;
+    private TextMeshProUGUI scoreText;
+    [SerializeField]
+    private Slider timeSlider;
 
+    private float startingTime = 30f;
 
-    public static MoleGameManager Instance { get; private set; }
+    private int score;
+    private bool isPlaying = false;
 
-    public GameState gs = GameState.Ready;
-    public int curretnScore;
-    private void Awake()
-    {
-
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Start()
-    {
-        timerSlider.maxValue = timer;
-        timerSlider.value = timer;
-
-        StartTimer();
-    }
 
     public void StartGame()
     {
-        gs = GameState.Play;
-        curretnScore = 0;
-        Debug.Log("Game Start!");
 
-    }
-
-    public void EndGame()
-    {
-        gs = GameState.End;
-        Debug.Log("Game Over! Final Score: " + curretnScore);
-    }
-
-    public void MoleWhacked()
-    {
-        if (gs == GameState.Play)
+        playButton.SetActive(false);
+        for (int i = 0; i < moles.Count; i++)
         {
-            curretnScore++;
-            gameScoreUI.text = curretnScore.ToString();
-
+            moles[i].Hide();
+            moles[i].SetIndex(i);
         }
+
+        score = 0;
+        scoreText.text = "0";
+        isPlaying = true;
+
+        StartCoroutine(TimerCountDown());
     }
 
-    public void ResetGame()
+    public void GameOver(int type)
     {
-        gs = GameState.Ready;
-        Debug.Log("Game Reset!");
-    }
-
-    public void StartTimer()
-    {
-        isTimerRunning = true;
-        StartCoroutine(TimerCountdown());
-
-    }
-    private IEnumerator TimerCountdown()
-    {
-
-        int previousSeconds = -1;
-        int previousHundredths = -1;
-
-        while (timer > 0)
+        foreach (MoleHole mole in moles)
         {
-            int seconds = Mathf.FloorToInt(timer % 60);
-            int hundredths = Mathf.FloorToInt((timer * 100) % 100);
+            mole.StopGame();
+        }
+        isPlaying = true;
+        playButton.SetActive(true);
+    }
 
-            if (seconds != previousSeconds || hundredths != previousHundredths)
+
+    public void AddScore(int moleScore)
+    {
+        score += 1;
+        scoreText.text = $"{score}";
+    }
+
+    private IEnumerator TimerCountDown()
+    {
+        int previousSconds = -1;
+        int previousHundredths = -1;
+        while (startingTime > 0)
+        {
+            int seconds = Mathf.FloorToInt(startingTime % 60);
+            int hundredths = Mathf.FloorToInt((startingTime * 100) % 100);
+            if (seconds != previousSconds || hundredths != previousHundredths)
             {
                 timeText.text = string.Format("{0:00}:{1:00}", seconds, hundredths);
-
-
-                previousSeconds = seconds;
+                previousSconds = seconds;
                 previousHundredths = hundredths;
-
             }
 
-            timerSlider.value = timer;
-
+            timeSlider.value = startingTime;
             yield return null;
+            startingTime -= Time.deltaTime;
 
-            timer -= Time.deltaTime;
-
-            if (timer <= 0)
+            if (startingTime <= 0)
             {
-                timer = 0;
-                isTimerRunning = false;
+                startingTime = 0;
                 timeText.text = "00:00";
-                timerSlider.value = timer;
+                timeSlider.value = startingTime;
 
-                EndGame();
             }
+
         }
     }
 }
