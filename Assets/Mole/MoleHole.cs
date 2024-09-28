@@ -15,19 +15,6 @@ public class MoleHole : MonoBehaviour
     [SerializeField] private Sprite moleHit;
     [SerializeField] private Sprite moleHatHit;
 
-    [Header("GameManager")]
-    [SerializeField] 
-    private MoleGameManager moleGameManager;
-
-
-    private Vector2 startPosition = new Vector2(0f, -2.56f);
-    private Vector2 endPosition = Vector2.zero;
-
-    [SerializeField]
-    private float showDuration = 1f;
-
-    private float duration = 1f;
-
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
@@ -38,68 +25,6 @@ public class MoleHole : MonoBehaviour
     private int lives;
     private int moleIndex = 0;
 
-
-
-
-
-    private IEnumerator ShowHide(Vector2 start, Vector2 end)
-    {
-
-        transform.localPosition = start;
-
-        float elapsed = 0f;
-        while (elapsed < showDuration)
-        {
-            transform.localPosition = Vector2.Lerp(start, end, elapsed / showDuration);
-
-
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-
-        transform.localPosition = end;
-
-
-
-        yield return new WaitForSeconds(duration);
-
-
-        elapsed = 0f;
-        while (elapsed < showDuration)
-        {
-            transform.localPosition = Vector2.Lerp(end, start, elapsed / showDuration);
-
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        transform.localPosition = start;
-
-
-        if (isHit)
-        {
-            isHit = false;
-
-        }
-    }
-
-    public void Hide()
-    {
-
-        transform.localPosition = startPosition;
-
-    }
-
-    private IEnumerator QuickHide()
-    {
-        yield return new WaitForSeconds(0.3f);
-        if (!isHit)
-        {
-            Hide();
-        }
-    }
-
     private void OnMouseDown()
     {
         if (isHit)
@@ -108,9 +33,7 @@ public class MoleHole : MonoBehaviour
             {
                 case MoleType.Standard:
                     spriteRenderer.sprite = moleHit;
-                    moleGameManager.AddScore(moleIndex);
 
-                    StartCoroutine(QuickHide());
                     isHit = false;
                     break;
                 case MoleType.HardHat:
@@ -122,8 +45,6 @@ public class MoleHole : MonoBehaviour
                     else
                     {
                         spriteRenderer.sprite = moleHatHit;
-                        moleGameManager.AddScore(moleIndex);
-                        StartCoroutine(QuickHide());
                         isHit = false;
                     }
                     break;
@@ -148,11 +69,6 @@ public class MoleHole : MonoBehaviour
         moleIndex = index;
     }
 
-    public void StopGame()
-    {
-        isHit = false;
-        StopAllCoroutines();
-    }
 }
 
 

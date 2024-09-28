@@ -7,74 +7,60 @@ using UnityEngine;
 /// 두더지 생성/삭제 관리 스크립트
 ///</summary>
 public class MoleHoleSpawnManager : MonoBehaviour
-{ 
+{
+
+    public MoleHole[] moleHoles;
+
 
     [SerializeField]
-    private MoleHole[] moleHoles;
-    [SerializeField]
-    private float minSpawnTime = 1.0f;
+    private float showDuration = 3f;
 
     [SerializeField]
-    private float maxSpawnTime = 3.0f;
+    private float HideDuration = 1f;
+    private float duration = 1f;
 
-    [SerializeField]
-    private float minMoleActiveTime = 1.0f;
-
-    [SerializeField]
-    private float maxMoleActiveTime = 2.5f;
-
-    [SerializeField]
-    private int maxActiveMoles = 3;
-
-    private int activeMolesCount = 0;
-
-
-
-
-    private Vector2 startPosition = new Vector2(0f, -2.56f);
-    private Vector2 endPosition = Vector2.zero;
-
-    [SerializeField]
-    private float showDuration = 1f;
-
-
-    public static MoleHoleSpawnManager Instance { get; private set; }
-
-    private void Start()
+    //Test
+    public IEnumerator MoleShowHide(Vector2 start, Vector2 end)
     {
+
         if (moleHoles.Length != 0)
         {
-            foreach (MoleHole moleHole in moleHoles)
+            foreach (var hole in moleHoles)
             {
-                StartCoroutine(HandleMoleHole(moleHole));
+                transform.localPosition = start;
+
+                float elapsed = 0f;
+                while (elapsed < showDuration)
+                {
+                    transform.localPosition = Vector2.Lerp(start, end, elapsed / showDuration);
+
+
+                    elapsed += Time.deltaTime;
+                    yield return null;
+                }
+
+
+                transform.localPosition = end;
+
+
+
+                yield return new WaitForSeconds(duration);
+
+
+                elapsed = 0f;
+                while (elapsed < showDuration)
+                {
+                    transform.localPosition = Vector2.Lerp(end, start, elapsed / showDuration);
+
+                    elapsed += Time.deltaTime;
+                    yield return null;
+                }
+
+                transform.localPosition = start;
+
             }
         }
     }
-    IEnumerator HandleMoleHole(MoleHole moleHole)
-    {
-        while (true)
-        {
 
-            //랜덤 두더지 스폰 시간
-            float randomSpawnTime = Random.Range(minSpawnTime, maxSpawnTime);
-            yield return new WaitForSeconds(randomSpawnTime);
 
-            //최대로 움직이는 두더지가 현재 움직이는 두더지 보다 많다면
-            if (activeMolesCount < maxActiveMoles)
-            {
-
-                activeMolesCount++;
-
-                //moleHole.ShowMole();
-
-                float randomActiveTime = Random.Range(minMoleActiveTime, maxMoleActiveTime);
-
-                yield return new WaitForSeconds(randomActiveTime);
-
-                //moleHole.HideMole();
-
-                activeMolesCount--;
-            }
-        }
-    }
 }

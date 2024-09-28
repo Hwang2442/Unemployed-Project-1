@@ -18,10 +18,7 @@ public enum GameState
 ///</summary>
 public class MoleGameManager : MonoBehaviour
 {
-    [SerializeField]
-    private List<MoleHole> moles;
-
-
+    public  MoleHoleSpawnManager moleSpawnManager;
     //UIController 제작 예정
     [Header("UI objects")]
     [SerializeField]
@@ -38,15 +35,16 @@ public class MoleGameManager : MonoBehaviour
     private int score;
     private bool isPlaying = false;
 
+    private Vector2 startPosition = new Vector2(0f, -2.56f);
+    private Vector2 endPosition = Vector2.zero;
+
 
     public void StartGame()
     {
-
         playButton.SetActive(false);
-        for (int i = 0; i < moles.Count; i++)
+        for (int i = 0; i < moleSpawnManager.moleHoles.Length; i++)
         {
-            moles[i].Hide();
-            moles[i].SetIndex(i);
+            moleSpawnManager.moleHoles[i].SetIndex(i);
         }
 
         score = 0;
@@ -54,16 +52,7 @@ public class MoleGameManager : MonoBehaviour
         isPlaying = true;
 
         StartCoroutine(TimerCountDown());
-    }
-
-    public void GameOver(int type)
-    {
-        foreach (MoleHole mole in moles)
-        {
-            mole.StopGame();
-        }
-        isPlaying = true;
-        playButton.SetActive(true);
+        //StartCoroutine(moleSpawnManager.MoleShowHide(startPosition, endPosition));
     }
 
 
