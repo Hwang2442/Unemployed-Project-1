@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class InteractablePaper : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private bool isInteractable = false;
+
+    private void Start()
     {
-        
+        if (TryGetComponent<Collider>(out var collider))
+        {
+            isInteractable = true;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseDown()
+    {
+        if (isInteractable)
+        {
+
+        }
+    }
+
+    private void OnMouseDrag()
     {
         
     }
