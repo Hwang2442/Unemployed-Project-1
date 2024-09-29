@@ -29,14 +29,11 @@ public class MoleGameManager : MonoBehaviour
     private TextMeshProUGUI scoreText;
     [SerializeField]
     private Slider timeSlider;
-
+    [SerializeField]
     private float startingTime = 30f;
 
     private int score;
     private bool isPlaying = false;
-
-    private Vector2 startPosition = new Vector2(0f, -2.56f);
-    private Vector2 endPosition = Vector2.zero;
 
 
     public void StartGame()

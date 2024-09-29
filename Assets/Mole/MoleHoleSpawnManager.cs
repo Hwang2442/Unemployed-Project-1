@@ -27,6 +27,7 @@ public class MoleHoleSpawnManager : MonoBehaviour
         {
             foreach (var hole in moleHoles)
             {
+                hole.RandomizeMoleType();
                 transform.localPosition = start;
 
                 float elapsed = 0f;

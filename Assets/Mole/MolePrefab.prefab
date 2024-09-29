@@ -397,12 +397,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af57ff314aa95a4298a12d8dd620ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mole: {fileID: 21300000, guid: 2ee3011f64b28c4439bac68e1f1cdd09, type: 3}
-  moleHardHat: {fileID: 21300000, guid: abf46af63b52cf045b08482ca8747498, type: 3}
-  moleHatBroken: {fileID: 21300000, guid: 9245ffae2538b79489ce299768dddfff, type: 3}
+  moleNormalSprite: {fileID: 21300000, guid: 2ee3011f64b28c4439bac68e1f1cdd09, type: 3}
+  moleHardHatSprite: {fileID: 21300000, guid: abf46af63b52cf045b08482ca8747498, type: 3}
+  bombMoleSprite: {fileID: 21300000, guid: 86740171f1488554eb14acf837acc6b2, type: 3}
   moleHit: {fileID: 21300000, guid: e8b7f5a040955724faa5b9689a1765fd, type: 3}
+  moleHatBroken: {fileID: 21300000, guid: 9245ffae2538b79489ce299768dddfff, type: 3}
   moleHatHit: {fileID: 21300000, guid: c9e227ad39d75b84c947c0b11b360604, type: 3}
-  gameManager: {fileID: 0}
+  bombHit: {fileID: 21300000, guid: c0c9ad4be3c93a64d863d34358fdaea3, type: 3}
 --- !u!61 &8751978401679610069
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -8,18 +8,28 @@ using UnityEngine;
 ///</summary>
 public class MoleHole : MonoBehaviour
 {
-    [Header("Graphics")]
-    [SerializeField] private Sprite mole;
-    [SerializeField] private Sprite moleHardHat;
-    [SerializeField] private Sprite moleHatBroken;
-    [SerializeField] private Sprite moleHit;
-    [SerializeField] private Sprite moleHatHit;
+    [Header("Mole Sprites")]
+    public Sprite moleNormalSprite;
+    public Sprite moleHardHatSprite;
+    public Sprite bombMoleSprite;
+
+    [Header("Hit Sprites")]
+    public Sprite moleHit;
+    public Sprite moleHatBroken;
+    public Sprite moleHatHit;
+    public Sprite bombHit;
+
+
+    public MoleGameManager moleGameManager;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
+    private Vector2 startPosition = new Vector2(0f, -2.56f);
+    private Vector2 endPosition = Vector2.zero;
+
     private bool isHit = true;
-    public enum MoleType { Standard, HardHat, Bomb };
+    public enum MoleType { Mole, MoleHat, Bomb };
     private MoleType moleType;
 
     private int lives;
@@ -31,12 +41,13 @@ public class MoleHole : MonoBehaviour
         {
             switch (moleType)
             {
-                case MoleType.Standard:
+                case MoleType.Mole:
                     spriteRenderer.sprite = moleHit;
-
+                    moleGameManager.AddScore(1);
+                    StartCoroutine(Hide()); ;
                     isHit = false;
                     break;
-                case MoleType.HardHat:
+                case MoleType.MoleHat:
                     if (lives == 2)
                     {
                         spriteRenderer.sprite = moleHatBroken;
@@ -45,11 +56,14 @@ public class MoleHole : MonoBehaviour
                     else
                     {
                         spriteRenderer.sprite = moleHatHit;
+                        moleGameManager.AddScore(2);
+                        StartCoroutine(Hide());
                         isHit = false;
                     }
                     break;
                 case MoleType.Bomb:
-                    // 점수 차감, 시간 감소 추가 예정
+                    moleGameManager.AddScore(-5);
+                    StartCoroutine(Hide());
                     break;
                 default:
                     break;
@@ -69,6 +83,36 @@ public class MoleHole : MonoBehaviour
         moleIndex = index;
     }
 
+    public void RandomizeMoleType()
+    {
+        int randomMole = Random.Range(0, 3);
+
+        switch (randomMole)
+        {
+            case 0:
+                moleType = MoleType.Mole;
+                spriteRenderer.sprite = moleNormalSprite;
+                break;
+            case 1:
+                moleType = MoleType.MoleHat;
+                spriteRenderer.sprite = moleHardHatSprite;
+                lives = 2;  
+                break;
+            case 2:
+                moleType = MoleType.Bomb;
+                spriteRenderer.sprite = bombMoleSprite;
+                break;
+        }
+
+        isHit = false;
+    }
+
+    private IEnumerator Hide()
+    {
+        yield return new WaitForSeconds(0.25f);
+        transform.localPosition = startPosition;
+
+    }
 }
 
 
