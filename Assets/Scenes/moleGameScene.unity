@@ -431,62 +431,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6542018586622729320, guid: b9199050ca4bf6d4cabaf3882ced3ba6, type: 3}
   m_PrefabInstance: {fileID: 1482409460}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &526454004
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 526454006}
-  - component: {fileID: 526454005}
-  m_Layer: 0
-  m_Name: HoleMoleSpwanManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &526454005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 526454004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55821fa3fb9c1b94cb752e1e89dad5dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moleHoles:
-  - {fileID: 8548504846954855610}
-  - {fileID: 921880145}
-  - {fileID: 1460372549}
-  - {fileID: 1900604513}
-  - {fileID: 749432064}
-  - {fileID: 718891062}
-  - {fileID: 1232986911}
-  - {fileID: 1688675106}
-  - {fileID: 1482409461}
-  showDuration: 1
-  HideDuration: 1
---- !u!4 &526454006
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 526454004}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &564688379 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8300680690341636609, guid: b9199050ca4bf6d4cabaf3882ced3ba6, type: 3}
@@ -1550,11 +1494,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efbf98f1c9783a14589ea32c38f187ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moleSpawnManager: {fileID: 526454005}
+  moles:
+  - {fileID: 8548504846954855610}
+  - {fileID: 921880145}
+  - {fileID: 1460372549}
+  - {fileID: 1900604513}
+  - {fileID: 749432064}
+  - {fileID: 718891062}
+  - {fileID: 1232986911}
+  - {fileID: 1688675106}
+  - {fileID: 1482409461}
   playButton: {fileID: 168772635}
   timeText: {fileID: 1021150480}
   scoreText: {fileID: 809083244}
   timeSlider: {fileID: 637349255}
+  startingTime: 10
 --- !u!1 &1370689778
 GameObject:
   m_ObjectHideFlags: 0
@@ -2419,9 +2373,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4456921127722779057, guid: b9199050ca4bf6d4cabaf3882ced3ba6, type: 3}
+      propertyPath: mole
+      value: 
+      objectReference: {fileID: 21300000, guid: 2ee3011f64b28c4439bac68e1f1cdd09, type: 3}
+    - target: {fileID: 4456921127722779057, guid: b9199050ca4bf6d4cabaf3882ced3ba6, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1353394307}
+    - target: {fileID: 4456921127722779057, guid: b9199050ca4bf6d4cabaf3882ced3ba6, type: 3}
+      propertyPath: moleHardHat
+      value: 
+      objectReference: {fileID: 21300000, guid: abf46af63b52cf045b08482ca8747498, type: 3}
     - target: {fileID: 4456921127722779057, guid: b9199050ca4bf6d4cabaf3882ced3ba6, type: 3}
       propertyPath: moleGameManager
       value: 
@@ -2529,4 +2491,3 @@ SceneRoots:
   - {fileID: 1370689779}
   - {fileID: 1353394306}
   - {fileID: 1150844433}
-  - {fileID: 526454006}

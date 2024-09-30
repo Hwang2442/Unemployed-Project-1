@@ -18,45 +18,55 @@ public enum GameState
 ///</summary>
 public class MoleGameManager : MonoBehaviour
 {
-    public  MoleHoleSpawnManager moleSpawnManager;
+
+    [Header("UI")]
     //UIController 제작 예정
-    [Header("UI objects")]
-    [SerializeField]
-    private GameObject playButton;
-    [SerializeField]
-    private TextMeshProUGUI timeText;
-    [SerializeField]
-    private TextMeshProUGUI scoreText;
-    [SerializeField]
-    private Slider timeSlider;
+    [SerializeField] private GameObject playButton;
+    [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField]private Slider timeSlider;
+
+    
+    [SerializeField] private List<MoleHole> moles = new List<MoleHole>();
     [SerializeField]
     private float startingTime = 30f;
 
+    public HashSet<MoleHole> currentMoles = new HashSet<MoleHole>();
     private int score;
-    private bool isPlaying = false;
+    private bool playing = false;
+
 
 
     public void StartGame()
     {
         playButton.SetActive(false);
-        for (int i = 0; i < moleSpawnManager.moleHoles.Length; i++)
-        {
-            moleSpawnManager.moleHoles[i].SetIndex(i);
-        }
-
+        currentMoles.Clear();
+        timeSlider.maxValue = startingTime;
+        timeSlider.value = startingTime;
         score = 0;
         scoreText.text = "0";
-        isPlaying = true;
+        playing = true;
+
+        for (int i = 0; i < moles.Count; i++)
+        {
+            moles[i].Hide();
+            moles[i].SetIndex(i);
+        }
 
         StartCoroutine(TimerCountDown());
-        //StartCoroutine(moleSpawnManager.MoleShowHide(startPosition, endPosition));
+        StartCoroutine(CreateMole());
     }
 
-
-    public void AddScore(int moleScore)
+    public void GameOver()
     {
-        score += 1;
-        scoreText.text = $"{score}";
+
+        foreach (var mole in moles)
+        {
+            mole.StopGame();
+        }
+
+        playing = false;
+        playButton.SetActive(true);
     }
 
     private IEnumerator TimerCountDown()
@@ -83,9 +93,35 @@ public class MoleGameManager : MonoBehaviour
                 startingTime = 0;
                 timeText.text = "00:00";
                 timeSlider.value = startingTime;
-
+                GameOver();
             }
 
+        }
+    }
+
+    public void AddScore(int moleIndex)
+    {
+        score += 1;
+        scoreText.text = $"{score}";
+         currentMoles.Remove(moles[moleIndex]);
+    }
+
+    public void Missed(int moleIndex, bool isMole)
+    {
+        currentMoles.Remove(moles[moleIndex]);
+    }
+
+    private IEnumerator CreateMole()
+    {
+        while (playing)
+        {
+            yield return new WaitForSeconds(0.5f);
+            int index = Random.Range(0, moles.Count);
+            if (!currentMoles.Contains(moles[index]))
+            {
+                currentMoles.Add(moles[index]);
+                moles[index].Activate();
+            }
         }
     }
 }
