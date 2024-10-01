@@ -69,8 +69,9 @@ public class SugarPaperGame : MonoBehaviour
 					last.Item2.transform.position = Vector3.zero;
                     var randDir = (DIRECTION)Random.Range(0, 4);
 					SetPaperColor(randDir, last.Item2);
-                    questions.Enqueue(last);
+					last.Item1 = randDir;
 					last.Item2.transform.SetAsFirstSibling();
+                    questions.Enqueue(last);
                     SortPapersLayer();
                 });
 
