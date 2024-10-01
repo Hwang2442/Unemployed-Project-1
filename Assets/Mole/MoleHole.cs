@@ -37,7 +37,7 @@ public class MoleHole : MonoBehaviour
     private Vector2 boxSizeHidden;
 
     // Mole Parameters 
-    private bool isHit = true;
+    public bool isHit = true;
     public enum MoleType { Mole, HatMole, Bomb };
     private MoleType moleType;
     private float hardRate = 0.25f;
