@@ -31,10 +31,12 @@ public class MoleGameManager : MonoBehaviour
     [SerializeField]private float startingTime = 30f;
 
     private FeverMode feverMode;
-    private int score;
     private bool playing = false;
-
+    private int TotalScore;
+    private int CurrentScore;
     public HashSet<MoleHole> currentMoles = new HashSet<MoleHole>();
+    public int HitScore = 9;
+
     private void Awake()
     {
         feverMode = GetComponent<FeverMode>();
@@ -46,7 +48,7 @@ public class MoleGameManager : MonoBehaviour
         currentMoles.Clear();
         timeSlider.maxValue = startingTime;
         timeSlider.value = startingTime;
-        score = 0;
+        TotalScore = 0;
         scoreText.text = "0";
         playing = true;
         feverMode.FeverSetting();
@@ -105,15 +107,16 @@ public class MoleGameManager : MonoBehaviour
 
     public void AddScore(int moleIndex)
     {
-        score += 1;
-        feverMode.UpdateFeverMode(moles[moleIndex].isHit);
-        scoreText.text = $"{score}";
+        CurrentScore = 0;
+        feverMode.UpdateFeverMode(moles[moleIndex].isHit, HitScore, out CurrentScore);
+        TotalScore += CurrentScore;
+        scoreText.text = $"{TotalScore}";
          currentMoles.Remove(moles[moleIndex]);
     }
 
     public void Missed(int moleIndex, bool isMole)
     {
-        feverMode.UpdateFeverMode(moles[moleIndex].isHit);
+        feverMode.UpdateFeverMode(moles[moleIndex].isHit, HitScore, out CurrentScore);
         currentMoles.Remove(moles[moleIndex]);
     }
 

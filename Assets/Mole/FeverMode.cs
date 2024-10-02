@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,22 +22,23 @@ public class FeverMode : MonoBehaviour
         FeverSlider.value = FeverAmount;
         FeverSlider.maxValue = 1f;
     }
-    public void UpdateFeverMode(bool moleHit)
+    public void UpdateFeverMode(bool moleHit, int hitScore, out int score)
     {
-        //ÀÓ½Ã °ª
-        float increaseAmount = 30f;
+        //TestValue
+        float increaseAmount = 20f;
         float decreaseAmount = 0.7f;
-
+        int increaseScore = 0;
 
         if (IsFeverMode)
         {
-            //Ãß°¡ Á¡¼ö 
+            increaseScore = hitScore * 2;
         }
         else
         {
             if (moleHit)
             {
                 FeverAmount += Time.deltaTime * increaseAmount;
+                increaseScore += hitScore;
             }
             else
             {
@@ -52,6 +53,7 @@ public class FeverMode : MonoBehaviour
             }
         }
         FeverSlider.value = FeverAmount;
+        score = increaseScore;
     }
 
     private void ActivateFeverMode()
@@ -81,7 +83,6 @@ public class FeverMode : MonoBehaviour
 
         while (timeElapsed < FeverDuration)
         {
-            // Update the slider based on time passed
             FeverSlider.value = Mathf.Lerp(1f, 0f, timeElapsed / FeverDuration);
 
 

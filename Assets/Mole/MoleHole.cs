@@ -126,7 +126,7 @@ public class MoleHole : MonoBehaviour
 
                     break;
                 case MoleType.HatMole:
-                    // If lives == 2 reduce, and change sprite.
+
                     if (lives == 2)
                     {
                         spriteRenderer.sprite = moleHatBroken;
@@ -152,20 +152,20 @@ public class MoleHole : MonoBehaviour
 
     public void RandomizeMoleType()
     {
-        int randomMole = Random.Range(0, 3);
+        int randomMole = Random.Range(0, 10);
 
         switch (randomMole)
         {
-            case 0:
+            case int n when (n >= 0 && n <= 4):
                 moleType = MoleType.Mole;
                 spriteRenderer.sprite = moleNormalSprite;
                 break;
-            case 1:
+            case int n when (n >= 5 && n <= 7):
                 moleType = MoleType.HatMole;
                 spriteRenderer.sprite = moleHardHatSprite;
                 lives = 2;
                 break;
-            case 2:
+            case int n when (n >= 8 && n <= 9):
                 moleType = MoleType.Bomb;
                 spriteRenderer.sprite = bombMoleSprite;
                 break;
