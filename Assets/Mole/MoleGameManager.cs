@@ -29,17 +29,23 @@ public class MoleGameManager : MonoBehaviour
     
     [SerializeField] private List<MoleHole> moles = new List<MoleHole>();
     [SerializeField]private float startingTime = 30f;
+    //[SerializeField] private AudioClip gameClip;
 
+    //private AudioSource gameAudio;
     private FeverMode feverMode;
     private bool playing = false;
     private int TotalScore;
     private int CurrentScore;
+
     public HashSet<MoleHole> currentMoles = new HashSet<MoleHole>();
     public int HitScore = 9;
 
     private void Awake()
     {
         feverMode = GetComponent<FeverMode>();
+        //gameAudio = GetComponent<AudioSource>();
+        //gameAudio.clip = gameClip;
+        //gameAudio.Play();
     }
 
     public void StartGame()
