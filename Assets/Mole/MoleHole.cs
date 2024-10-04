@@ -21,7 +21,6 @@ public class MoleHole : MonoBehaviour
 
     [Header("MoleGameManager")]
     [SerializeField] private MoleGameManager moleGameManager;
-
     private Vector2 startPosition = new Vector2(0f, -2.56f);
     private Vector2 endPosition = Vector2.zero;
 
@@ -119,7 +118,6 @@ public class MoleHole : MonoBehaviour
                 case MoleType.Mole:
                     spriteRenderer.sprite = moleHit;
                     moleGameManager.AddScore(moleIndex);
-
                     StopAllCoroutines();
                     StartCoroutine(HitHide());
                     isHit = false;

@@ -29,10 +29,10 @@ public class MoleGameManager : MonoBehaviour
     
     [SerializeField] private List<MoleHole> moles = new List<MoleHole>();
     [SerializeField]private float startingTime = 30f;
-    //[SerializeField] private AudioClip gameClip;
+    [SerializeField] private AudioClip gameClip;
+    [SerializeField] private FeverMode feverMode;
 
-    //private AudioSource gameAudio;
-    private FeverMode feverMode;
+    private AudioSource gameAudio;
     private bool playing = false;
     private int TotalScore;
     private int CurrentScore;
@@ -40,12 +40,13 @@ public class MoleGameManager : MonoBehaviour
     public HashSet<MoleHole> currentMoles = new HashSet<MoleHole>();
     public int HitScore = 9;
 
+
     private void Awake()
     {
-        feverMode = GetComponent<FeverMode>();
-        //gameAudio = GetComponent<AudioSource>();
-        //gameAudio.clip = gameClip;
-        //gameAudio.Play();
+        gameAudio = GetComponent<AudioSource>();
+        gameAudio.clip = gameClip;
+        gameAudio.Play();
+        gameAudio.loop = true;
     }
 
     public void StartGame()
@@ -85,10 +86,11 @@ public class MoleGameManager : MonoBehaviour
     {
         int previousSconds = -1;
         int previousHundredths = -1;
-        while (startingTime > 0)
+        float inGameTime = startingTime;
+        while (inGameTime > 0)
         {
-            int seconds = Mathf.FloorToInt(startingTime % 60);
-            int hundredths = Mathf.FloorToInt((startingTime * 100) % 100);
+            int seconds = Mathf.FloorToInt(inGameTime % 60);
+            int hundredths = Mathf.FloorToInt((inGameTime * 100) % 100);
             if (seconds != previousSconds || hundredths != previousHundredths)
             {
                 timeText.text = string.Format("{0:00}:{1:00}", seconds, hundredths);
@@ -96,15 +98,15 @@ public class MoleGameManager : MonoBehaviour
                 previousHundredths = hundredths;
             }
 
-            timeSlider.value = startingTime;
+            timeSlider.value = inGameTime;
             yield return null;
-            startingTime -= Time.deltaTime;
+            inGameTime -= Time.deltaTime;
 
-            if (startingTime <= 0)
+            if (inGameTime <= 0)
             {
-                startingTime = 0;
+                inGameTime = 0;
                 timeText.text = "00:00";
-                timeSlider.value = startingTime;
+                timeSlider.value = inGameTime;
                 GameOver();
             }
 

@@ -7,20 +7,26 @@ public class FeverMode : MonoBehaviour
 {
 
     [SerializeField]
-    private Slider FeverSlider;
+    private Slider feverSlider;
     [SerializeField]
-    private float FeverDuration = 2f;
+    private float feverDuration = 2f;
+    [SerializeField]
+    private AudioSource feverSound;
+    [SerializeField]
+    private AudioClip feverclip;
+    [SerializeField]
+    private AudioClip moleHitclip;
 
-    private float FeverTimeRemaining = 0f;
-    private float FeverAmount = 0;
+    private float feverTimeRemaining = 0f;
+    private float feverAmount = 0;
 
-    public bool IsFeverMode = false;
+    public bool isFeverMode = false;
 
 
     public void FeverSetting()
     {
-        FeverSlider.value = FeverAmount;
-        FeverSlider.maxValue = 1f;
+        feverSlider.value = feverAmount;
+        feverSlider.maxValue = 1f;
     }
     public void UpdateFeverMode(bool moleHit, int hitScore, out int score)
     {
@@ -29,39 +35,47 @@ public class FeverMode : MonoBehaviour
         float decreaseAmount = 0.7f;
         int increaseScore = 0;
 
-        if (IsFeverMode)
+        if (isFeverMode)
         {
-            increaseScore = hitScore * 2;
+            if (moleHit)
+            {
+                increaseScore = hitScore * 2;
+                feverSound.clip = feverclip;
+                feverSound.Play();
+            }
+
         }
         else
         {
             if (moleHit)
             {
-                FeverAmount += Time.deltaTime * increaseAmount;
+                feverAmount += Time.deltaTime * increaseAmount;
                 increaseScore += hitScore;
+                feverSound.clip = moleHitclip;
+                feverSound.Play();
             }
             else
             {
-                if (FeverAmount > 0)
+                if (feverAmount > 0)
                 {
-                    FeverAmount -= Time.deltaTime * decreaseAmount; 
+                    feverAmount -= Time.deltaTime * decreaseAmount;
                 }
             }
-            if (FeverAmount >= 1f)
+            if (feverAmount >= 1f)
             {
                 ActivateFeverMode();
             }
         }
-        FeverSlider.value = FeverAmount;
+        feverSlider.value = feverAmount;
         score = increaseScore;
     }
 
     private void ActivateFeverMode()
     {
-        IsFeverMode = true;
-        FeverTimeRemaining = FeverDuration;
-        FeverSlider.maxValue = 1f;
-        FeverSlider.value = 1f;
+        isFeverMode = true;
+        feverTimeRemaining = feverDuration;
+        feverSlider.maxValue = 1f;
+        feverSlider.value = 1f;
         StartCoroutine(FeverModeCoroutine());
         Debug.Log("Fever Mode!");
     }
@@ -69,10 +83,9 @@ public class FeverMode : MonoBehaviour
 
     private void EndFeverMode()
     {
-        IsFeverMode = false;
-        FeverAmount = 0;
-        FeverSlider.value = 0;
-
+        isFeverMode = false;
+        feverAmount = 0;
+        feverSlider.value = 0;
         Debug.Log("End Fever Mode.");
     }
 
@@ -81,16 +94,17 @@ public class FeverMode : MonoBehaviour
     {
         float timeElapsed = 0f;
 
-        while (timeElapsed < FeverDuration)
+        while (timeElapsed < feverDuration)
         {
-            FeverSlider.value = Mathf.Lerp(1f, 0f, timeElapsed / FeverDuration);
+            feverSlider.value = Mathf.Lerp(1f, 0f, timeElapsed / feverDuration);
 
 
             timeElapsed += Time.deltaTime;
 
             yield return null;
         }
-        FeverSlider.value = 0f;
+
+        feverSlider.value = 0f;
 
         EndFeverMode();
     }
