@@ -55,7 +55,7 @@ public class SugarPaperGame : MonoBehaviour
 			float x = Input.GetAxis("Mouse X");
 			float y = Input.GetAxis("Mouse Y");
 
-			if (Mathf.Abs(x) < 0.1f || Mathf.Abs(y) < 0.1f)
+			if (Mathf.Abs(x) < 0.1f && Mathf.Abs(y) < 0.1f)
 				return;
 
             var question = questions.Peek();
