@@ -18,15 +18,16 @@ public class FeverMode : MonoBehaviour
     private AudioClip moleHitclip;
 
     private float feverTimeRemaining = 0f;
-    private float feverAmount = 0;
+    private float feverAmount = 0f;
 
     public bool isFeverMode = false;
 
 
     public void FeverSetting()
     {
+        feverAmount = 0f;
         feverSlider.value = feverAmount;
-        feverSlider.maxValue = 1f;
+        feverSlider.maxValue = 1f; 
     }
     public void UpdateFeverMode(bool moleHit, int hitScore, out int score)
     {

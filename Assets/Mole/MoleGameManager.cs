@@ -25,8 +25,12 @@ public class MoleGameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField]private Slider timeSlider;
+    [SerializeField] private GameObject gameStartPanel;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private TextMeshProUGUI totalScoreText;
+    [SerializeField] private TextMeshProUGUI highScoreText;
 
-    
+    [SerializeField] private GameObject molesObject;
     [SerializeField] private List<MoleHole> moles = new List<MoleHole>();
     [SerializeField]private float startingTime = 30f;
     [SerializeField] private AudioClip gameClip;
@@ -34,10 +38,11 @@ public class MoleGameManager : MonoBehaviour
 
     private AudioSource gameAudio;
     private bool playing = false;
-    private int TotalScore;
-    private int CurrentScore;
+    private int totalScore;
+    private int currentScore;
 
     public HashSet<MoleHole> currentMoles = new HashSet<MoleHole>();
+    public GameState gameState = GameState.Ready;
     public int HitScore = 9;
 
 
@@ -52,10 +57,14 @@ public class MoleGameManager : MonoBehaviour
     public void StartGame()
     {
         playButton.SetActive(false);
+        gameState = GameState.Play;
+        gameOverPanel.SetActive(false);
+        gameStartPanel.SetActive(false);
+        molesObject.SetActive(true);
         currentMoles.Clear();
         timeSlider.maxValue = startingTime;
         timeSlider.value = startingTime;
-        TotalScore = 0;
+        totalScore = 0;
         scoreText.text = "0";
         playing = true;
         feverMode.FeverSetting();
@@ -79,7 +88,20 @@ public class MoleGameManager : MonoBehaviour
         }
 
         playing = false;
-        playButton.SetActive(true);
+        gameState = GameState.End;
+        gameOverPanel.SetActive(true);
+        UpdateHighScore();
+        totalScoreText.text = $"SCORE\n{totalScore}";
+        //playButton.SetActive(true);
+    }
+
+    private void UpdateHighScore()
+    {
+        if (totalScore > PlayerPrefs.GetInt("HighScore"))
+        {
+            PlayerPrefs.SetInt("HIGHSCORE", totalScore);
+            highScoreText.text = $"HIGH SCORE\n{totalScore}";
+        }
     }
 
     private IEnumerator TimerCountDown()
@@ -115,16 +137,16 @@ public class MoleGameManager : MonoBehaviour
 
     public void AddScore(int moleIndex)
     {
-        CurrentScore = 0;
-        feverMode.UpdateFeverMode(moles[moleIndex].isHit, HitScore, out CurrentScore);
-        TotalScore += CurrentScore;
-        scoreText.text = $"{TotalScore}";
+        currentScore = 0;
+        feverMode.UpdateFeverMode(moles[moleIndex].isHit, HitScore, out currentScore);
+        totalScore += currentScore;
+        scoreText.text = $"{totalScore}";
          currentMoles.Remove(moles[moleIndex]);
     }
 
     public void Missed(int moleIndex, bool isMole)
     {
-        feverMode.UpdateFeverMode(moles[moleIndex].isHit, HitScore, out CurrentScore);
+        feverMode.UpdateFeverMode(moles[moleIndex].isHit, HitScore, out currentScore);
         currentMoles.Remove(moles[moleIndex]);
     }
 

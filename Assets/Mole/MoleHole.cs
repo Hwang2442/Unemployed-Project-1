@@ -111,7 +111,7 @@ public class MoleHole : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (isHit)
+        if (isHit && moleGameManager.gameState == GameState.Play)
         {
             switch (moleType)
             {
