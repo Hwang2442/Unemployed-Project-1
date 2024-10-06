@@ -22,8 +22,11 @@ public class SugarPaperGame : MonoBehaviour
 	[SerializeField] private Color[] paperColors = new Color[] { Color.green, Color.red, Color.gray, Color.blue };
 
 	private Queue<(DIRECTION, SpriteRenderer)> questions = new Queue<(DIRECTION, SpriteRenderer)>();
-
 	private bool isClicked = false;
+
+	// Unity Editor Debug
+	private KeyCode[] keyCodes = new KeyCode[] { KeyCode.UpArrow, KeyCode.RightArrow, KeyCode.DownArrow, KeyCode.LeftArrow };
+	private Vector2[] keyDirs = new Vector2[] { Vector2.up, Vector2.right, Vector2.down, Vector2.left };
 
     private void Start()
     {
@@ -45,6 +48,29 @@ public class SugarPaperGame : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_EDITOR
+		for (int i = 0; i < keyCodes.Length; i++)
+		{
+			if (Input.GetKeyDown(keyCodes[i]))
+			{
+				var question = questions.Peek();
+				if (question.Item1 == GetAnswer(keyDirs[i].x, keyDirs[i].y))
+				{
+					MovePaper();
+					Debug.Log("Success");
+				}
+				else
+				{
+                    question.Item2.transform.DOKill();
+                    question.Item2.transform.DOShakeRotation(0.5f, new Vector3(0, 0, 60));
+                    Debug.Log("Failed");
+                }
+
+				return;
+			}
+		}
+#endif
+
 		if (Input.GetMouseButtonDown(0))
 			isClicked = true;
 		else if (Input.GetMouseButtonUp(0))
@@ -59,22 +85,9 @@ public class SugarPaperGame : MonoBehaviour
 				return;
 
             var question = questions.Peek();
-            Debug.LogFormat("{0} {1} {2} {3}", x, y, question.Item1, GetAnswer(x, y));
-
             if (question.Item1 == GetAnswer(x, y))
             {
-                var last = questions.Dequeue();
-                question.Item2.transform.DOMove(answerPapers[(int)question.Item1].transform.position, 0.2f).SetEase(Ease.OutQuad).OnComplete(() =>
-				{
-					last.Item2.transform.position = Vector3.zero;
-                    var randDir = (DIRECTION)Random.Range(0, 4);
-					SetPaperColor(randDir, last.Item2);
-					last.Item1 = randDir;
-					last.Item2.transform.SetAsFirstSibling();
-                    questions.Enqueue(last);
-                    SortPapersLayer();
-                });
-
+				MovePaper();
 				Debug.Log("Success");
             }
 			else
@@ -87,6 +100,23 @@ public class SugarPaperGame : MonoBehaviour
 			isClicked = false;
 		}
     }
+
+	private void MovePaper()
+	{
+		var paper = questions.Dequeue();
+		paper.Item2.transform.DOMove(answerPapers[(int)paper.Item1].transform.position, 0.2f).SetEase(Ease.OutQuad).OnComplete(() =>
+		{
+			var randDir = (DIRECTION)Random.Range(0, 4);
+			paper.Item2.transform.position = Vector3.zero;
+			SetPaperColor(randDir, paper.Item2);
+
+			paper.Item1 = randDir;
+			paper.Item2.transform.SetAsFirstSibling();
+			questions.Enqueue(paper);
+
+			SortPapersLayer();
+		});
+	}
 
 	private DIRECTION GetAnswer(float x, float y)
 	{
