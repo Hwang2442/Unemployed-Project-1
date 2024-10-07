@@ -19,6 +19,11 @@ public class MoleHole : MonoBehaviour
     public Sprite moleHatHit;
     public Sprite bombHit;
 
+    [Header("Camera")]
+    public Camera mainCamera;
+    public ShakeCamera shakeCamera;
+
+
     [Header("MoleGameManager")]
     [SerializeField] private MoleGameManager moleGameManager;
     private Vector2 startPosition = new Vector2(0f, -2.56f);
@@ -55,12 +60,12 @@ public class MoleHole : MonoBehaviour
             transform.localPosition = Vector2.Lerp(start, end, elapsed / showDuration);
             boxCollider2D.offset = Vector2.Lerp(boxOffsetHidden, boxOffset, elapsed / showDuration);
             boxCollider2D.size = Vector2.Lerp(boxSizeHidden, boxSize, elapsed / showDuration);
-            // Update at max framerate.
+
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        // Make sure we're exactly at the end.
+
         transform.localPosition = end;
         boxCollider2D.offset = boxOffset;
         boxCollider2D.size = boxSize;
@@ -96,7 +101,10 @@ public class MoleHole : MonoBehaviour
         transform.localPosition = startPosition;
         boxCollider2D.offset = boxOffsetHidden;
         boxCollider2D.size = boxSizeHidden;
-
+        if (animator.enabled)
+        {
+            animator.enabled = false;
+        }
     }
 
     private IEnumerator HitHide()
@@ -111,6 +119,7 @@ public class MoleHole : MonoBehaviour
 
     private void OnMouseDown()
     {
+        //if (Input.GetMouseButtonDown(0))
         if (isHit && moleGameManager.gameState == GameState.Play)
         {
             switch (moleType)
@@ -134,13 +143,16 @@ public class MoleHole : MonoBehaviour
                     {
                         spriteRenderer.sprite = moleHatHit;
                         moleGameManager.AddScore(moleIndex);
-                        // Stop the animation
                         StopAllCoroutines();
                         StartCoroutine(HitHide());
                         isHit = false;
                     }
                     break;
                 case MoleType.Bomb:
+                        shakeCamera.Shake();
+                        StopAllCoroutines();
+                        StartCoroutine(HitHide());
+                        isHit = false;
                     break;
                 default:
                     break;
@@ -154,18 +166,19 @@ public class MoleHole : MonoBehaviour
 
         switch (randomMole)
         {
-            case int n when (n >= 0 && n <= 4):
+            case int n when (n >= 0 && n <= 5):
                 moleType = MoleType.Mole;
                 spriteRenderer.sprite = moleNormalSprite;
                 break;
-            case int n when (n >= 5 && n <= 7):
+            case int n when (n >= 6 && n <= 8):
                 moleType = MoleType.HatMole;
                 spriteRenderer.sprite = moleHardHatSprite;
                 lives = 2;
                 break;
-            case int n when (n >= 8 && n <= 9):
+            case int n when (n <=9):
                 moleType = MoleType.Bomb;
                 spriteRenderer.sprite = bombMoleSprite;
+                animator.enabled = true;
                 break;
         }
 
@@ -176,7 +189,7 @@ public class MoleHole : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         boxCollider2D = GetComponent<BoxCollider2D>();
-
+        shakeCamera.mainCamera = mainCamera;
         boxOffset = boxCollider2D.offset;
         boxSize = boxCollider2D.size;
         boxOffsetHidden = new Vector2(boxOffset.x, -startPosition.y / 2f);
