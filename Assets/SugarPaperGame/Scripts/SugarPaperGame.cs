@@ -134,6 +134,9 @@ public class SugarPaperGame : MonoBehaviour
 		spriteRenderer.color = color;
 	}
 
+	/// <summary>
+	/// 레이어 번호 정렬
+	/// </summary>
 	private void SortPapersLayer()
 	{
 		foreach (var paper in centerPapers)
