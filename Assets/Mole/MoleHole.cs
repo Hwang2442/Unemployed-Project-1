@@ -149,6 +149,7 @@ public class MoleHole : MonoBehaviour
                     }
                     break;
                 case MoleType.Bomb:
+                        animator.enabled = false;
                         shakeCamera.Shake();
                         StopAllCoroutines();
                         StartCoroutine(HitHide());

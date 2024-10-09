@@ -97,10 +97,14 @@ public class MoleGameManager : MonoBehaviour
 
     private void UpdateHighScore()
     {
-        if (totalScore > PlayerPrefs.GetInt("HighScore"))
+        if (totalScore > PlayerPrefs.GetInt("HIGHSCORE"))
         {
             PlayerPrefs.SetInt("HIGHSCORE", totalScore);
-            highScoreText.text = $"HIGH SCORE\n{totalScore}";
+            highScoreText.text = $"HIGHSCORE\n{totalScore}";
+        }
+        else
+        {
+            highScoreText.text = $"HIGHSCORE\n{PlayerPrefs.GetInt("HIGHSCORE")}";
         }
     }
 
