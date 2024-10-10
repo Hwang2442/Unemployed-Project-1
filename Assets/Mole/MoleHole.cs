@@ -80,7 +80,7 @@ public class MoleHole : MonoBehaviour
             transform.localPosition = Vector2.Lerp(end, start, elapsed / showDuration);
             boxCollider2D.offset = Vector2.Lerp(boxOffset, boxOffsetHidden, elapsed / showDuration);
             boxCollider2D.size = Vector2.Lerp(boxSize, boxSizeHidden, elapsed / showDuration);
-            // Update at max framerate.
+
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -91,7 +91,7 @@ public class MoleHole : MonoBehaviour
         if (isHit)
         {
             isHit = false;
-            moleGameManager.Missed(moleIndex, moleType != MoleType.Bomb);
+            moleGameManager.Missed(moleIndex);
         }
     }
 
@@ -117,46 +117,50 @@ public class MoleHole : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    private void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        if (isHit && moleGameManager.gameState == GameState.Play)
+        if (Input.GetMouseButtonDown(0) && moleGameManager.gameState == GameState.Play)
         {
-            switch (moleType)
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
+            if (hit.collider != null && hit.collider.gameObject == gameObject && isHit) 
             {
-                case MoleType.Mole:
-                    spriteRenderer.sprite = moleHit;
-                    moleGameManager.AddScore(moleIndex);
-                    StopAllCoroutines();
-                    StartCoroutine(HitHide());
-                    isHit = false;
-
-                    break;
-                case MoleType.HatMole:
-
-                    if (lives == 2)
-                    {
-                        spriteRenderer.sprite = moleHatBroken;
-                        lives--;
-                    }
-                    else
-                    {
-                        spriteRenderer.sprite = moleHatHit;
+                switch (moleType)
+                {
+                    case MoleType.Mole:
+                        spriteRenderer.sprite = moleHit;
                         moleGameManager.AddScore(moleIndex);
                         StopAllCoroutines();
                         StartCoroutine(HitHide());
                         isHit = false;
-                    }
-                    break;
-                case MoleType.Bomb:
-                        animator.enabled = false;
+
+                        break;
+                    case MoleType.HatMole:
+
+                        if (lives == 2)
+                        {
+                            spriteRenderer.sprite = moleHatBroken;
+                            lives--;
+                        }
+                        else
+                        {
+                            spriteRenderer.sprite = moleHatHit;
+                            moleGameManager.AddScore(moleIndex);
+                            StopAllCoroutines();
+                            StartCoroutine(HitHide());
+                            isHit = false;
+                        }
+                        break;
+                    case MoleType.Bomb:
                         shakeCamera.Shake();
+                        animator.enabled = false;
                         StopAllCoroutines();
                         StartCoroutine(HitHide());
                         isHit = false;
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

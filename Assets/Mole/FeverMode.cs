@@ -32,7 +32,7 @@ public class FeverMode : MonoBehaviour
     public void UpdateFeverMode(bool moleHit, int hitScore, out int score)
     {
         //TestValue
-        float increaseAmount = 20f;
+        float increaseAmount = 15f;
         float decreaseAmount = 0.7f;
         int increaseScore = 0;
 
@@ -59,7 +59,7 @@ public class FeverMode : MonoBehaviour
             {
                 if (feverAmount > 0)
                 {
-                    feverAmount -= Time.deltaTime * decreaseAmount;
+                    feverAmount -= Time.deltaTime * 2 * decreaseAmount;
                 }
             }
             if (feverAmount >= 1f)

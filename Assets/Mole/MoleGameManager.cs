@@ -92,7 +92,6 @@ public class MoleGameManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         UpdateHighScore();
         totalScoreText.text = $"SCORE\n{totalScore}";
-        //playButton.SetActive(true);
     }
 
     private void UpdateHighScore()
@@ -113,6 +112,10 @@ public class MoleGameManager : MonoBehaviour
         int previousSconds = -1;
         int previousHundredths = -1;
         float inGameTime = startingTime;
+        float timeremaining = startingTime * 0.2f;
+
+        timeSlider.fillRect.GetComponentInChildren<Image>().color = Color.white;
+
         while (inGameTime > 0)
         {
             int seconds = Mathf.FloorToInt(inGameTime % 60);
@@ -125,6 +128,12 @@ public class MoleGameManager : MonoBehaviour
             }
 
             timeSlider.value = inGameTime;
+
+            if (inGameTime <= timeremaining)
+            {
+                timeSlider.fillRect.GetComponentInChildren<Image>().color = Color.red;
+            }
+
             yield return null;
             inGameTime -= Time.deltaTime;
 
@@ -148,7 +157,7 @@ public class MoleGameManager : MonoBehaviour
          currentMoles.Remove(moles[moleIndex]);
     }
 
-    public void Missed(int moleIndex, bool isMole)
+    public void Missed(int moleIndex)
     {
         feverMode.UpdateFeverMode(moles[moleIndex].isHit, HitScore, out currentScore);
         currentMoles.Remove(moles[moleIndex]);
@@ -158,7 +167,9 @@ public class MoleGameManager : MonoBehaviour
     {
         while (playing)
         {
-            yield return new WaitForSeconds(0.5f);
+            float spawnInterval = Mathf.Lerp(0.1f, 1f, timeSlider.value / startingTime); 
+            yield return new WaitForSeconds(spawnInterval);
+
             int index = Random.Range(0, moles.Count);
             if (!currentMoles.Contains(moles[index]))
             {
