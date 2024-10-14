@@ -88,9 +88,14 @@ public class MoleHole : MonoBehaviour
         transform.localPosition = start;
         boxCollider2D.offset = boxOffsetHidden;
         boxCollider2D.size = boxSizeHidden;
+
         if (isHit)
         {
             isHit = false;
+            if (animator.enabled)
+            {
+                animator.enabled = false;
+            }
             moleGameManager.Missed(moleIndex);
         }
     }
