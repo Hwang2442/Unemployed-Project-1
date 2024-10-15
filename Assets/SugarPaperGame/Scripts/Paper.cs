@@ -8,6 +8,13 @@ namespace SugarpaperGame
     public class Paper : MonoBehaviour
     {
         [Serializable]
+        public class PaperDesign
+        {
+            [SerializeField] private Sprite frame;
+            [SerializeField] private Sprite gem;
+        }
+
+        [Serializable]
         public enum DIRECTION : int
         {
             TOP = 0,
