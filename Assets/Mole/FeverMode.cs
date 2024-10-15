@@ -29,11 +29,21 @@ public class FeverMode : MonoBehaviour
         feverSlider.value = feverAmount;
         feverSlider.maxValue = 1f; 
     }
+
+    private void Update()
+    {
+        if (!isFeverMode && feverAmount > 0)
+        {
+            feverAmount -= Time.deltaTime * 0.01f; 
+            feverSlider.value = feverAmount;
+        }
+    }
+
     public void UpdateFeverMode(bool moleHit, int hitScore, out int score)
     {
         //TestValue
         float increaseAmount = 15f;
-        float decreaseAmount = 0.7f;
+
         int increaseScore = 0;
 
         if (isFeverMode)
@@ -55,13 +65,7 @@ public class FeverMode : MonoBehaviour
                 feverSound.clip = moleHitclip;
                 feverSound.Play();
             }
-            else
-            {
-                if (feverAmount > 0)
-                {
-                    feverAmount -= Time.deltaTime * 2 * decreaseAmount;
-                }
-            }
+
             if (feverAmount >= 1f)
             {
                 ActivateFeverMode();
@@ -108,5 +112,14 @@ public class FeverMode : MonoBehaviour
         feverSlider.value = 0f;
 
         EndFeverMode();
+    }
+
+    public void ResetFeverMode()
+    {
+
+        isFeverMode = false;
+        feverAmount = 0f;
+        feverSlider.value = 0f;
+        StopAllCoroutines();
     }
 }

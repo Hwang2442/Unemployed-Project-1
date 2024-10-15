@@ -161,6 +161,7 @@ public class MoleHole : MonoBehaviour
                         animator.enabled = false;
                         StopAllCoroutines();
                         StartCoroutine(HitHide());
+                        moleGameManager.currentMoles.Remove(this);
                         isHit = false;
                         break;
                     default:

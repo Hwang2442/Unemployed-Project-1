@@ -56,6 +56,8 @@ public class MoleGameManager : MonoBehaviour
 
     public void StartGame()
     {
+        feverMode.ResetFeverMode();
+
         playButton.SetActive(false);
         gameState = GameState.Play;
         gameOverPanel.SetActive(false);
@@ -92,6 +94,8 @@ public class MoleGameManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         UpdateHighScore();
         totalScoreText.text = $"SCORE\n{totalScore}";
+
+        feverMode.ResetFeverMode();
     }
 
     private void UpdateHighScore()
