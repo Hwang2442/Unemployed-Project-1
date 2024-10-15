@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1054270445
+  m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: e6eea4f7cbb9f46f79c0fe06180fa5b3, type: 3}
@@ -98,11 +98,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b69b55e649cc7454fb3fb957d65159f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dirType: 2
-  frameRenderer: {fileID: 0}
-  subRenderer: {fileID: 0}
-  frameSprite: {fileID: 21300000, guid: e6eea4f7cbb9f46f79c0fe06180fa5b3, type: 3}
-  subSprite: {fileID: 21300000, guid: 046232de1b0d041f8800fbad35d66ceb, type: 3}
+  design:
+    dir: 2
+    frame: {fileID: 21300000, guid: e6eea4f7cbb9f46f79c0fe06180fa5b3, type: 3}
+    gem: {fileID: 21300000, guid: 046232de1b0d041f8800fbad35d66ceb, type: 3}
+  frameRenderer: {fileID: 149114618940397459}
+  subRenderer: {fileID: 659709670894527233}
 --- !u!1 &7357980662509079562
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +130,7 @@ Transform:
   m_GameObject: {fileID: 7357980662509079562}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.001}
   m_LocalScale: {x: 0.24999999, y: 0.24999999, z: 0.24999999}
   m_ConstrainProportionsScale: 1
   m_Children: []

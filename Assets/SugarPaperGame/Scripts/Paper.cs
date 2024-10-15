@@ -10,8 +10,13 @@ namespace SugarpaperGame
         [Serializable]
         public class PaperDesign
         {
+            [SerializeField] private DIRECTION dir;
             [SerializeField] private Sprite frame;
             [SerializeField] private Sprite gem;
+
+            public DIRECTION DIR => dir;
+            public Sprite Frame => frame;
+            public Sprite Gem => gem;
         }
 
         [Serializable]
@@ -23,37 +28,34 @@ namespace SugarpaperGame
             LEFT
         }
 
-        [SerializeField] private DIRECTION dirType;
+        [SerializeField] private PaperDesign design;
 
         [Space]
         [SerializeField] private SpriteRenderer frameRenderer;
         [SerializeField] private SpriteRenderer subRenderer;
 
-        [Space]
-        [SerializeField] private Sprite frameSprite;
-        [SerializeField] private Sprite subSprite;
+        public PaperDesign Design => design;
 
-        public DIRECTION DirType => dirType;
-        public Sprite FrameSprite => frameSprite;
-        public Sprite SubSprite => subSprite;
 
         private void Awake()
         {
-            frameRenderer = GetComponent<SpriteRenderer>();
-            subRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+            if (frameRenderer == null)
+                frameRenderer = GetComponent<SpriteRenderer>();
+            if (subRenderer == null)
+                subRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
 
-        public void SetPaper(Paper paper)
+        public void SetPaper(PaperDesign design)
         {
-            this.dirType = paper.dirType;
-            
+            this.design = design;
+            frameRenderer.sprite = design.Frame;
+            subRenderer.sprite = design.Gem;
         }
 
-        public void MovePaper()
+        public void SetRendererOrder(int order)
         {
-
+            frameRenderer.sortingOrder = order;
+            subRenderer.sortingOrder = order;
         }
-
-
     }
 }
