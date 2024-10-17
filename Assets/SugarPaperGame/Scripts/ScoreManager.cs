@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
 {
     public class FeverInfo
     {
-        public string text = "FEVER";
+        [SerializeField] private string text = "FEVER";
     }
 
     [SerializeField] private int score;
