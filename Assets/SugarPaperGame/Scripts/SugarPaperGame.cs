@@ -42,6 +42,13 @@ namespace SugarpaperGame
         private void Update()
         {
 #if UNITY_EDITOR
+            KeyboardInput();
+#endif
+            MouseInput();
+        }
+
+        private void KeyboardInput()
+        {
             for (int i = 0; i < keyCodes.Length; i++)
             {
                 if (Input.GetKeyDown(keyCodes[i]))
@@ -63,8 +70,10 @@ namespace SugarpaperGame
                     return;
                 }
             }
-#endif
+        }
 
+        private void MouseInput()
+        {
             if (Input.GetMouseButtonDown(0))
                 isClicked = true;
             else if (Input.GetMouseButtonUp(0))
