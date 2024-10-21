@@ -11,6 +11,8 @@ namespace SugarpaperGame
 {
     public class SugarPaperGame : MonoBehaviour
     {
+        [SerializeField] private ScoreManager scoreManager;
+
         [Header("Papers")]
         [SerializeField] private Paper[] directionPapers;
         [SerializeField] private Paper[] centerPapers;
@@ -59,12 +61,14 @@ namespace SugarpaperGame
                     {
                         paperOrders.Dequeue();
                         MovePaper(first);
-                        Debug.Log("Success");
+                        //Debug.Log("Success");
+                        scoreManager.Score += 90;
                     }
                     else
                     {
                         ShakePaper(first, inputDir);
-                        Debug.Log("Failed");
+                        //Debug.Log("Failed");
+                        scoreManager.Score += 0;
                     }
 
                     return;

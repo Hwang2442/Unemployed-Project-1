@@ -12,3 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f4df8f5f5769642a56194bb863c357, type: 3}
   m_Name: FeverSliderSettingTable
   m_EditorClassIdentifier: 
+  levels:
+  - displayText: F<space=1em>E<space=1em>V<space=1em>E<space=1em>R
+    backgroundColor: {r: 0, g: 0, b: 0, a: 0}
+    fillColor: {r: 0, g: 0, b: 0, a: 0}
+  - displayText: FEVER
+    backgroundColor: {r: 0, g: 0, b: 0, a: 0}
+    fillColor: {r: 0, g: 0, b: 0, a: 0}
+  - displayText: SUPER FEVER
+    backgroundColor: {r: 0, g: 0, b: 0, a: 0}
+    fillColor: {r: 0, g: 0, b: 0, a: 0}
+  - displayText: ULTRA FEVER
+    backgroundColor: {r: 0, g: 0, b: 0, a: 0}
+    fillColor: {r: 0, g: 0, b: 0, a: 0}

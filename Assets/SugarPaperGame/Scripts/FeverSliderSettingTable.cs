@@ -11,23 +11,25 @@ public class FeverSliderSettingTable : ScriptableObject
     private class Level
     {
         [SerializeField] private string displayText;
+        [SerializeField] private Color textColor;
 
         [Header("Slider")]
         [SerializeField] private Color backgroundColor;
         [SerializeField] private Color fillColor;
 
-        public void SetSlider(Slider slider)
+        public void SetSlider(Slider slider, TextMeshProUGUI tmpText)
         {
             slider.image.color = backgroundColor;
             slider.fillRect.GetComponent<Image>().color = fillColor;
-            slider.GetComponentInChildren<TextMeshProUGUI>().text = displayText;
+            tmpText.text = displayText;
+            tmpText.color = textColor;
         }
     }
 
     [SerializeField] private Level[] levels;
 
-    public void SetFeverSlider(Slider slider, int levelIndex)
+    public void SetFever(Slider slider, TextMeshProUGUI tmpText, int levelIndex)
     {
-        levels[levelIndex].SetSlider(slider);
+        levels[levelIndex].SetSlider(slider, tmpText);
     }
 }
