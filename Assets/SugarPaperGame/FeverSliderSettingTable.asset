@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: FeverSliderSettingTable
   m_EditorClassIdentifier: 
   levels:
-  - displayText: F<space=1em>E<space=1em>V<space=1em>E<space=1em>R
-    backgroundColor: {r: 0, g: 0, b: 0, a: 0}
-    fillColor: {r: 0, g: 0, b: 0, a: 0}
-  - displayText: FEVER
-    backgroundColor: {r: 0, g: 0, b: 0, a: 0}
-    fillColor: {r: 0, g: 0, b: 0, a: 0}
-  - displayText: SUPER FEVER
-    backgroundColor: {r: 0, g: 0, b: 0, a: 0}
-    fillColor: {r: 0, g: 0, b: 0, a: 0}
-  - displayText: ULTRA FEVER
-    backgroundColor: {r: 0, g: 0, b: 0, a: 0}
-    fillColor: {r: 0, g: 0, b: 0, a: 0}
+  - titleText: F<space=1em>E<space=1em>V<space=1em>E<space=1em>R
+    backgroundColor: {r: 0.015686275, g: 0.1882353, b: 0.39215687, a: 0}
+    fillColor: {r: 1, g: 0.2509804, b: 1, a: 1}
+  - titleText: FEVER
+    backgroundColor: {r: 1, g: 0.2901961, b: 1, a: 1}
+    fillColor: {r: 1, g: 0.25, b: 0.39224005, a: 1}
+  - titleText: SUPER FEVER
+    backgroundColor: {r: 1, g: 0.2509804, b: 0.39215687, a: 1}
+    fillColor: {r: 1, g: 0, b: 0.989954, a: 1}
+  - titleText: ULTRA FEVER
+    backgroundColor: {r: 1, g: 0, b: 0.9882353, a: 1}
+    fillColor: {r: 1, g: 1, b: 0, a: 1}

@@ -10,26 +10,20 @@ public class FeverSliderSettingTable : ScriptableObject
     [System.Serializable]
     private class Level
     {
-        [SerializeField] private string displayText;
-        [SerializeField] private Color textColor;
-
-        [Header("Slider")]
-        [SerializeField] private Color backgroundColor;
-        [SerializeField] private Color fillColor;
-
-        public void SetSlider(Slider slider, TextMeshProUGUI tmpText)
-        {
-            slider.image.color = backgroundColor;
-            slider.fillRect.GetComponent<Image>().color = fillColor;
-            tmpText.text = displayText;
-            tmpText.color = textColor;
-        }
+        public string titleText;
+        public Color backgroundColor;
+        public Color fillColor;
     }
 
     [SerializeField] private Level[] levels;
 
-    public void SetFever(Slider slider, TextMeshProUGUI tmpText, int levelIndex)
+    public int LevelLength => levels.Length;
+
+    public void SetFeverUI(int levelIndex, Image background, Image fiil, TextMeshProUGUI title)
     {
-        levels[levelIndex].SetSlider(slider, tmpText);
+        var level = levels[levelIndex];
+        background.color = level.backgroundColor;
+        fiil.color = level.fillColor;
+        title.text = level.titleText;
     }
 }
