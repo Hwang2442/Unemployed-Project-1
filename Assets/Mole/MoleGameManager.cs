@@ -24,7 +24,7 @@ public class MoleGameManager : MonoBehaviour
     [SerializeField] private GameObject playButton;
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField]private Slider timeSlider;
+    [SerializeField] private Slider timeSlider;
     [SerializeField] private GameObject gameStartPanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TextMeshProUGUI totalScoreText;
@@ -32,7 +32,7 @@ public class MoleGameManager : MonoBehaviour
 
     [SerializeField] private GameObject molesObject;
     [SerializeField] private List<MoleHole> moles = new List<MoleHole>();
-    [SerializeField]private float startingTime = 30f;
+    [SerializeField] private float startingTime = 60f;
     [SerializeField] private AudioClip gameClip;
     [SerializeField] private FeverMode feverMode;
 

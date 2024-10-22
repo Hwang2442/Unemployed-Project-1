@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class FeverMode : MonoBehaviour
@@ -9,6 +10,8 @@ public class FeverMode : MonoBehaviour
     [SerializeField]
     private Slider feverSlider;
     [SerializeField]
+    private TextMeshProUGUI sliderText;
+    [SerializeField]
     private float feverDuration = 2f;
     [SerializeField]
     private AudioSource feverSound;
@@ -16,8 +19,9 @@ public class FeverMode : MonoBehaviour
     private AudioClip feverclip;
     [SerializeField]
     private AudioClip moleHitclip;
+    [SerializeField]
+    private GameObject feverParticle;
 
-    private float feverTimeRemaining = 0f;
     private float feverAmount = 0f;
 
     public bool isFeverMode = false;
@@ -25,6 +29,7 @@ public class FeverMode : MonoBehaviour
 
     public void FeverSetting()
     {
+        sliderText.text = "F E V E R";
         feverAmount = 0f;
         feverSlider.value = feverAmount;
         feverSlider.maxValue = 1f; 
@@ -78,9 +83,9 @@ public class FeverMode : MonoBehaviour
     private void ActivateFeverMode()
     {
         isFeverMode = true;
-        feverTimeRemaining = feverDuration;
         feverSlider.maxValue = 1f;
         feverSlider.value = 1f;
+        feverParticle.SetActive(true);
         StartCoroutine(FeverModeCoroutine());
         Debug.Log("Fever Mode!");
     }
@@ -91,6 +96,7 @@ public class FeverMode : MonoBehaviour
         isFeverMode = false;
         feverAmount = 0;
         feverSlider.value = 0;
+        feverParticle.SetActive(false);
         Debug.Log("End Fever Mode.");
     }
 
