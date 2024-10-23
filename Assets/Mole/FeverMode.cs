@@ -30,9 +30,7 @@ public class FeverMode : MonoBehaviour
     public void FeverSetting()
     {
         sliderText.text = "F E V E R";
-        feverAmount = 0f;
-        feverSlider.value = feverAmount;
-        feverSlider.maxValue = 1f; 
+        EndFeverMode();
     }
 
     private void Update()
@@ -90,14 +88,13 @@ public class FeverMode : MonoBehaviour
         Debug.Log("Fever Mode!");
     }
 
-
     private void EndFeverMode()
     {
         isFeverMode = false;
         feverAmount = 0;
-        feverSlider.value = 0;
+        feverSlider.value = feverAmount;
+        feverSlider.maxValue = 1f;
         feverParticle.SetActive(false);
-        Debug.Log("End Fever Mode.");
     }
 
 
