@@ -16,24 +16,19 @@ namespace SugarpaperGame
 
         [Header("Score")]
         [SerializeField] private int score = 0;
+        [SerializeField] private int successCount = 0;
+        [SerializeField] private int successStep = 5;
         [SerializeField] private TextMeshProUGUI scoreText;
-        [SerializeField] private int defaultScore = 90;
 
-        [Header("FEVER")]
-        [SerializeField] private FeverSliderSettingTable feverSliderSettingTable;
-        [SerializeField, Range(0, 1)] private float feverGauge;
-        [SerializeField] private Slider feverSlider;
-        [SerializeField] private TextMeshProUGUI feverText;
+        [Header("Bonus")]
+        [SerializeField] private int startBonusScore = 100;
+        [SerializeField] private int currentBonusScore = 0;
 
         public int Score
         {
             get { return score; }
             set
             {
-                feverGauge = Mathf.Clamp01(feverGauge + (value > score ? 0.1f : -0.5f));
-                feverSlider.DOKill();
-                feverSlider.DOValue(feverGauge, 0.3f).SetEase(Ease.OutBack);
-
                 score = value;
                 scoreText.SetText(score.ToString("N0"));
             }
@@ -42,7 +37,23 @@ namespace SugarpaperGame
         private void Awake()
         {
             scoreText.SetText(score.ToString("N0"));
-            feverSlider.value = feverGauge;
+        }
+
+        #region Score control
+
+        public void AddScore(int addScore)
+        {
+            bool isSuccess = addScore > 0;
+
+            score += addScore;
+            scoreText.SetText(score.ToString("N0"));
+        }
+
+        #endregion
+
+        public Transform SetBonusScore(int score)
+        {
+            return null;
         }
     }
 }

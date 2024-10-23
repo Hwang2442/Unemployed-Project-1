@@ -11,7 +11,10 @@ namespace SugarpaperGame
 {
     public class SugarPaperGame : MonoBehaviour
     {
+        [Header("Score & Fever")]
         [SerializeField] private ScoreManager scoreManager;
+        [SerializeField] private FeverManager feverManager;
+        [SerializeField] private int defaultScore = 100;
 
         [Header("Papers")]
         [SerializeField] private Paper[] directionPapers;
@@ -63,12 +66,14 @@ namespace SugarpaperGame
                         MovePaper(first);
                         //Debug.Log("Success");
                         scoreManager.Score += 90;
+                        feverManager.AddFeverGauge(true, false);
                     }
                     else
                     {
                         ShakePaper(first, inputDir);
                         //Debug.Log("Failed");
                         scoreManager.Score += 0;
+                        feverManager.AddFeverGauge(false, false);
                     }
 
                     return;
