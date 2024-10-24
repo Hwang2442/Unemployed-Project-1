@@ -84,7 +84,7 @@ public class FeverMode : MonoBehaviour
         feverSlider.maxValue = 1f;
         feverSlider.value = 1f;
         feverParticle.SetActive(true);
-        StartCoroutine(FeverModeCoroutine());
+        //StartCoroutine(FeverModeCoroutine());
         Debug.Log("Fever Mode!");
     }
 
