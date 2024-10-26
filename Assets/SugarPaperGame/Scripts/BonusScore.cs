@@ -8,7 +8,7 @@ namespace SugarpaperGame
 {
     public class BonusScore : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI scoreText;
+        [SerializeField] private TextMeshPro scoreText;
 
         private void OnEnable()
         {
