@@ -5203,6 +5203,7 @@ RectTransform:
   m_Children:
   - {fileID: 1481454885}
   - {fileID: 153131665}
+  - {fileID: 1139751214}
   m_Father: {fileID: 398968009}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -5257,7 +5258,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.317
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -30101,8 +30102,6 @@ RectTransform:
   - {fileID: 1473990372}
   - {fileID: 637349254}
   - {fileID: 100612533}
-  - {fileID: 1139751214}
-  - {fileID: 1021150479}
   - {fileID: 809083243}
   - {fileID: 670628263}
   m_Father: {fileID: 0}
@@ -35194,6 +35193,7 @@ RectTransform:
   m_Children:
   - {fileID: 865254175}
   - {fileID: 686913867}
+  - {fileID: 1021150479}
   m_Father: {fileID: 398968009}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
@@ -60387,11 +60387,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 398968009}
+  m_Father: {fileID: 637349254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: 45}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1021150480
@@ -75016,11 +75016,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 398968009}
+  m_Father: {fileID: 100612533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -214}
+  m_AnchoredPosition: {x: 0, y: -47}
   m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1139751215
@@ -75052,8 +75052,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 1694498815
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -90182,7 +90182,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 893452534743736695, guid: bc5c9842ed20fb14eab8fca166a60f01, type: 3}
+  m_Sprite: {fileID: -477357447977262584, guid: 0815faab49ccf63458bea68717a665ae, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -99987,13 +99987,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feverSlider: {fileID: 100612534}
+  feverSliderBackGround: {fileID: 1481454886}
+  feverSliderFill: {fileID: 1391145389}
+  defaultfeverBackGround: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  feverBackGround: {fileID: -477357447977262584, guid: 0815faab49ccf63458bea68717a665ae, type: 3}
+  superFeverBackGround: {fileID: 893452534743736695, guid: bc5c9842ed20fb14eab8fca166a60f01, type: 3}
+  ultraFeverBackGround: {fileID: 2823479486145030729, guid: b67c53ee68dad3640b6698ae3135ffd9, type: 3}
   sliderText: {fileID: 1139751215}
-  feverDuration: 5
+  feverDuration: 10
   feverSound: {fileID: 1412760064}
   feverclip: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
   moleHitclip: {fileID: 8300000, guid: cf6c0e7fbef9449c98a0cdb5ea0c4d9f, type: 3}
   feverParticle: {fileID: 1778087104}
-  isFeverMode: 0
 --- !u!4 &1412760066
 Transform:
   m_ObjectHideFlags: 0
@@ -100372,7 +100377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.45490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -110668,7 +110673,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1778087105
 Transform:
   m_ObjectHideFlags: 0

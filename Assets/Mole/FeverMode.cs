@@ -7,6 +7,12 @@ using UnityEngine.UI;
 public class FeverMode : MonoBehaviour
 {
     [SerializeField] private Slider feverSlider;
+    [SerializeField] private Image feverSliderBackGround;
+    [SerializeField] private Image feverSliderFill;
+    [SerializeField] private Sprite defaultfeverBackGround;
+    [SerializeField] private Sprite feverBackGround;
+    [SerializeField] private Sprite superFeverBackGround;
+    [SerializeField] private Sprite ultraFeverBackGround;
     [SerializeField] private TextMeshProUGUI sliderText;
     [SerializeField] private float feverDuration = 2f;
     [SerializeField] private AudioSource feverSound;
@@ -21,6 +27,8 @@ public class FeverMode : MonoBehaviour
     public void FeverSetting()
     {
         sliderText.text = "F E V E R";
+        SetTextAlpha(0.5f);
+        SetColorAlpha(0.5f);
         EndFeverMode();
     }
 
@@ -35,13 +43,14 @@ public class FeverMode : MonoBehaviour
 
     public void UpdateFeverMode(bool moleHit, int hitScore, out int score)
     {
-        float increaseAmount = 15f;
+        float increaseAmount = 20f;
         int increaseScore = 0;
 
         if (isSuperFeverMode) 
         {
             if (moleHit)
             {
+                feverAmount += Time.deltaTime * increaseAmount;
                 increaseScore = hitScore * 4; 
                 feverSound.clip = feverclip;
                 feverSound.Play();
@@ -89,7 +98,6 @@ public class FeverMode : MonoBehaviour
 
         while (timeElapsed < feverDuration)
         {
-            // Super Fever transition check
             if (!isSuperFeverMode && feverAmount >= 1f)
             {
                 ActivateSuperFeverMode();
@@ -109,6 +117,10 @@ public class FeverMode : MonoBehaviour
         feverAmount = 0f;
         feverSlider.maxValue = 1f;
         feverSlider.value = 0f;
+        SetTextAlpha(1f);
+        SetColorAlpha(1f);
+        feverSliderBackGround.sprite = feverBackGround;
+        feverSliderFill.sprite = superFeverBackGround;
         feverParticle.SetActive(true);
         StartCoroutine(FeverModeCoroutine());
         Debug.Log("Fever!");
@@ -121,7 +133,8 @@ public class FeverMode : MonoBehaviour
         sliderText.text = "S U P E R  F E V E R";
         feverAmount = 0f;
         feverSlider.value = 0f;
-        feverParticle.SetActive(true);
+        feverSliderBackGround.sprite = superFeverBackGround;
+        feverSliderFill.sprite = ultraFeverBackGround;
         Debug.Log("Super Fever!");
     }
 
@@ -132,8 +145,12 @@ public class FeverMode : MonoBehaviour
         feverAmount = 0;
         feverSlider.value = feverAmount;
         feverSlider.maxValue = 1f;
+        feverSliderBackGround.sprite = defaultfeverBackGround;
+        feverSliderFill.sprite = feverBackGround;
         feverParticle.SetActive(false);
         sliderText.text = "F E V E R";
+        SetTextAlpha(0.5f);
+        SetColorAlpha(0.5f);
     }
 
     public void ResetFeverMode()
@@ -144,5 +161,19 @@ public class FeverMode : MonoBehaviour
         feverSlider.value = 0f;
         sliderText.text = "F E V E R";
         StopAllCoroutines();
+    }
+
+    public void SetTextAlpha(float alpha)
+    {
+        Color color = sliderText.color;
+        color.a = Mathf.Clamp01(alpha); 
+        sliderText.color = color;
+    }
+
+    public void SetColorAlpha(float alpha)
+    {
+        Color color = feverSliderBackGround.color;
+        color.a = Mathf.Clamp01(alpha);
+        feverSliderBackGround.color = color;
     }
 }
