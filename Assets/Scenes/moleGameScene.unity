@@ -35248,7 +35248,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.046
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -90009,6 +90009,9 @@ MonoBehaviour:
   timeText: {fileID: 1021150480}
   scoreText: {fileID: 809083244}
   timeSlider: {fileID: 637349255}
+  timeSliderFill: {fileID: 1963523904}
+  timeSliderFillSprite: {fileID: 21300000, guid: 41f68bec7506344f19c4a2960cda7eb0, type: 3}
+  timeOverSliderFillSprite: {fileID: 21300000, guid: 3171e19e560724a729e9cd9dd131ee36, type: 3}
   gameStartPanel: {fileID: 1473990371}
   gameOverPanel: {fileID: 670628262}
   totalScoreText: {fileID: 1631698474}
