@@ -44,8 +44,6 @@ public class MoleHole : MonoBehaviour
     public bool isHit = true;
     public enum MoleType { Mole, HatMole, Bomb };
     private MoleType moleType;
-    private float hardRate = 0.25f;
-    private float bombRate = 0f;
     private int lives;
     private int moleIndex = 0;
 
