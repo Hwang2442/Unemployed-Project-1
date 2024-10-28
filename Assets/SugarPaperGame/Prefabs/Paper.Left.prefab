@@ -99,7 +99,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   design:
     dir: 3
-    frame: {fileID: 21300000, guid: 84063999b9e1741d099c1d8f7bbc0f7a, type: 3}
-    gem: {fileID: 21300000, guid: d18d20781d36e4f869cb35cdaed53926, type: 3}
+    frame: {fileID: 21300000, guid: 00448ac55cc84614eb5bc47edc425dec, type: 3}
   frameRenderer: {fileID: 8446816569211021482}
-  subRenderer: {fileID: 0}
