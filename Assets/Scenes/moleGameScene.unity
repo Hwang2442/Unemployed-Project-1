@@ -45394,7 +45394,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -90027,7 +90027,7 @@ MonoBehaviour:
   - {fileID: 1232986911}
   - {fileID: 1688675106}
   - {fileID: 1482409461}
-  startingTime: 30
+  startingTime: 60
   gameClip: {fileID: 8300000, guid: 47f45ef7b5767674393cc401fc325705, type: 3}
   feverMode: {fileID: 1412760065}
   gameState: 0
@@ -99996,6 +99996,7 @@ MonoBehaviour:
   feverBackGround: {fileID: -477357447977262584, guid: 0815faab49ccf63458bea68717a665ae, type: 3}
   superFeverBackGround: {fileID: 893452534743736695, guid: bc5c9842ed20fb14eab8fca166a60f01, type: 3}
   ultraFeverBackGround: {fileID: 2823479486145030729, guid: b67c53ee68dad3640b6698ae3135ffd9, type: 3}
+  megaFeverBackGround: {fileID: 2377688040186873368, guid: b0bf94ead829fd24591a1625a292a742, type: 3}
   sliderText: {fileID: 1139751215}
   feverDuration: 10
   feverSound: {fileID: 1412760064}

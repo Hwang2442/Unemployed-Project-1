@@ -13,6 +13,7 @@ public class FeverMode : MonoBehaviour
     [SerializeField] private Sprite feverBackGround;
     [SerializeField] private Sprite superFeverBackGround;
     [SerializeField] private Sprite ultraFeverBackGround;
+    [SerializeField] private Sprite megaFeverBackGround;
     [SerializeField] private TextMeshProUGUI sliderText;
     [SerializeField] private float feverDuration = 2f;
     [SerializeField] private AudioSource feverSound;
@@ -23,7 +24,7 @@ public class FeverMode : MonoBehaviour
     private float feverAmount = 0f;
     private bool isFeverMode = false;
     private bool isSuperFeverMode = false;
-
+    private bool isUltraFeverMode = false;
     public void FeverSetting()
     {
         sliderText.text = "F E V E R";
@@ -46,22 +47,37 @@ public class FeverMode : MonoBehaviour
         float increaseAmount = 20f;
         int increaseScore = 0;
 
-        if (isSuperFeverMode) 
+        if (isUltraFeverMode)
         {
             if (moleHit)
             {
                 feverAmount += Time.deltaTime * increaseAmount;
-                increaseScore = hitScore * 4; 
+                increaseScore = hitScore * 8;
                 feverSound.clip = feverclip;
                 feverSound.Play();
             }
         }
-        else if (isFeverMode) 
+        else if (isSuperFeverMode)
         {
             if (moleHit)
             {
-                feverAmount += Time.deltaTime * increaseAmount; 
-                increaseScore = hitScore * 2; 
+                feverAmount += Time.deltaTime * increaseAmount;
+                increaseScore = hitScore * 4;
+                feverSound.clip = feverclip;
+                feverSound.Play();
+
+                if (feverAmount >= 1f)
+                {
+                    ActivateUltraFeverMode();
+                }
+            }
+        }
+        else if (isFeverMode)
+        {
+            if (moleHit)
+            {
+                feverAmount += Time.deltaTime * increaseAmount;
+                increaseScore = hitScore * 2;
                 feverSound.clip = feverclip;
                 feverSound.Play();
 
@@ -71,7 +87,7 @@ public class FeverMode : MonoBehaviour
                 }
             }
         }
-        else 
+        else
         {
             if (moleHit)
             {
@@ -89,26 +105,6 @@ public class FeverMode : MonoBehaviour
 
         feverSlider.value = feverAmount;
         score = increaseScore;
-    }
-
-
-    private IEnumerator FeverModeCoroutine()
-    {
-        float timeElapsed = 0f;
-
-        while (timeElapsed < feverDuration)
-        {
-            if (!isSuperFeverMode && feverAmount >= 1f)
-            {
-                ActivateSuperFeverMode();
-            }
-
-            timeElapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        feverSlider.value = 0f;
-        EndFeverMode();
     }
 
     private void ActivateFeverMode()
@@ -136,6 +132,38 @@ public class FeverMode : MonoBehaviour
         feverSliderBackGround.sprite = superFeverBackGround;
         feverSliderFill.sprite = ultraFeverBackGround;
         Debug.Log("Super Fever!");
+    }
+    
+    private void ActivateUltraFeverMode()
+    {
+        isUltraFeverMode = true;
+        isFeverMode = false;
+        isSuperFeverMode = false;
+        feverAmount = 0f;
+        feverSlider.value = 0f;
+        sliderText.text = "U L T R A  F E V E R";
+        feverSliderBackGround.sprite = ultraFeverBackGround;
+        feverSliderFill.sprite = megaFeverBackGround;
+        Debug.Log("Ultra Fever!");
+
+    }
+    private IEnumerator FeverModeCoroutine()
+    {
+        float timeElapsed = 0f;
+
+        while (timeElapsed < feverDuration)
+        {
+            if (!isSuperFeverMode && feverAmount >= 1f)
+            {
+                ActivateSuperFeverMode();
+            }
+
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        feverSlider.value = 0f;
+        EndFeverMode();
     }
 
     private void EndFeverMode()
