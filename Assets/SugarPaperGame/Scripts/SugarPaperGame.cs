@@ -13,7 +13,6 @@ namespace SugarpaperGame
     {
         [Header("Score & Fever")]
         [SerializeField] private ScoreManager scoreManager;
-        [SerializeField] private FeverManager feverManager;
         [SerializeField] private int defaultScore = 100;
 
         [Header("Papers")]
@@ -64,16 +63,12 @@ namespace SugarpaperGame
                     {
                         paperOrders.Dequeue();
                         MovePaper(first);
-                        //Debug.Log("Success");
-                        scoreManager.Score += 90;
-                        feverManager.AddFeverGauge(true, false);
+                        scoreManager.AddScore(defaultScore);
                     }
                     else
                     {
                         ShakePaper(first, inputDir);
-                        //Debug.Log("Failed");
-                        scoreManager.Score += 0;
-                        feverManager.AddFeverGauge(false, false);
+                        scoreManager.AddScore(0);
                     }
 
                     return;
@@ -101,7 +96,7 @@ namespace SugarpaperGame
                 if (first.Design.DIR == inputDir)
                 {
                     paperOrders.Dequeue();
-                    MovePaper(first);
+                    //MovePaper(first);
                     Debug.Log("Success");
                 }
                 else
@@ -134,13 +129,15 @@ namespace SugarpaperGame
                 paper.transform.SetAsFirstSibling();
                 SortPapersLayer();
             });
+
+            scoreManager.PlayBonusScoreAnimation(paper.transform.position, targetPosition);
         }
 
         private void ShakePaper(Paper paper, Paper.DIRECTION direction)
         {
             Vector3 targetDirection = keyDirs[(int)direction];
 
-            paper.transform.DOKill();
+            paper.transform.DOComplete();
             paper.transform.DOPunchPosition(targetDirection * 0.3f, 0.2f, 30, 0.5f).SetEase(shakeEase);
         }
 
