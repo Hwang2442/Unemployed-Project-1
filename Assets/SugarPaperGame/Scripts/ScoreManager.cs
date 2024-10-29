@@ -50,19 +50,29 @@ namespace SugarpaperGame
             bool isBonus = bonusScores.Any(x => x.gameObject.activeSelf);
             successCount += isSuccess ? 1 : 0;
 
-            score += isBonus ? currentBonusScore : addScore;
+            // Calculate score
+            int calcScore = isBonus ? currentBonusScore : addScore;
+            calcScore = feverManager.CalculateScore(calcScore);
+            score += calcScore;
             scoreText.SetText(score.ToString("N0"));
 
-            bool useBonus = feverManager.IsFever || (isSuccess && successCount > 0 && (successCount % successStep == 0));
-            if (useBonus)
+            if (isSuccess)
             {
-                currentBonusScore += startBonusScore;
+                bool useBonus = feverManager.IsFever || (isSuccess && successCount > 0 && (successCount % successStep == 0));
+                if (useBonus)
+                {
+                    currentBonusScore += startBonusScore;
 
-                var bonus = bonusScores.First(x => !x.gameObject.activeSelf);
-                bonus.transform.position = new Vector3(0, 0, -0.01f);
-                bonus.gameObject.SetActive(true);
-                bonus.Score = currentBonusScore;
-                bonus.PlaySpwanAnimation();
+                    var bonus = bonusScores.First(x => !x.gameObject.activeSelf);
+                    bonus.transform.position = new Vector3(0, 0, -0.01f);
+                    bonus.gameObject.SetActive(true);
+                    bonus.Score = currentBonusScore;
+                    bonus.PlaySpwanAnimation();
+                }
+            }
+            else
+            {
+
             }
 
             // Fever gauge
