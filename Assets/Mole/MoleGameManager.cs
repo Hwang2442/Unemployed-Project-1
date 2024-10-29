@@ -20,11 +20,13 @@ public class MoleGameManager : MonoBehaviour
 {
 
     [Header("UI")]
-    //UIController 제작 예정
     [SerializeField] private GameObject playButton;
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField]private Slider timeSlider;
+    [SerializeField] private Slider timeSlider;
+    [SerializeField] private Image timeSliderFill;
+    [SerializeField] private Sprite timeSliderFillSprite;
+    [SerializeField] private Sprite timeOverSliderFillSprite;
     [SerializeField] private GameObject gameStartPanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TextMeshProUGUI totalScoreText;
@@ -32,7 +34,7 @@ public class MoleGameManager : MonoBehaviour
 
     [SerializeField] private GameObject molesObject;
     [SerializeField] private List<MoleHole> moles = new List<MoleHole>();
-    [SerializeField]private float startingTime = 30f;
+    [SerializeField] private float startingTime = 60f;
     [SerializeField] private AudioClip gameClip;
     [SerializeField] private FeverMode feverMode;
 
@@ -57,7 +59,7 @@ public class MoleGameManager : MonoBehaviour
     public void StartGame()
     {
         feverMode.ResetFeverMode();
-
+        timeSliderFill.sprite = timeSliderFillSprite;
         playButton.SetActive(false);
         gameState = GameState.Play;
         gameOverPanel.SetActive(false);
@@ -118,8 +120,6 @@ public class MoleGameManager : MonoBehaviour
         float inGameTime = startingTime;
         float timeremaining = startingTime * 0.2f;
 
-        timeSlider.fillRect.GetComponentInChildren<Image>().color = Color.white;
-
         while (inGameTime > 0)
         {
             int seconds = Mathf.FloorToInt(inGameTime % 60);
@@ -135,7 +135,7 @@ public class MoleGameManager : MonoBehaviour
 
             if (inGameTime <= timeremaining)
             {
-                timeSlider.fillRect.GetComponentInChildren<Image>().color = Color.red;
+                timeSliderFill.sprite = timeOverSliderFillSprite;
             }
 
             yield return null;
