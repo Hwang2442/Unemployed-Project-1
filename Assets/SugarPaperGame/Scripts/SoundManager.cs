@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+namespace SugarpaperGame
 {
-    // Start is called before the first frame update
-    void Start()
+    [RequireComponent(typeof(AudioSource))]
+    public class SoundManager : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] private SoundSettingTable soundTable;
     }
 }
