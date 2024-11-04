@@ -90,6 +90,7 @@ namespace SugarpaperGame
             Sequence sequence = DOTween.Sequence();
             sequence.Append(tr.DOMove(dest, 0.1f));
             sequence.Append(tr.DOScale(-0.1f, 0.1f).SetRelative());
+            sequence.AppendCallback(() => SoundManager.Instance.PlaySFX("PaperBonusSFX", 1f));
             sequence.Append(tr.DOScale(0.1f, 0.1f).SetRelative());
             sequence.Join(bonus.PlayCompleteAnimation());
             sequence.OnComplete(() =>

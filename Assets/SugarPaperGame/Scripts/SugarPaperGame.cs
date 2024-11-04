@@ -5,7 +5,6 @@ using UnityEngine;
 
 using DG.Tweening;
 using Random = UnityEngine.Random;
-using UnityEditor.Experimental.GraphView;
 
 namespace SugarpaperGame
 {
@@ -33,6 +32,8 @@ namespace SugarpaperGame
 
         private void Start()
         {
+            SoundManager.Instance.PlayBGM("PaperBGM", 0.5f);
+
             for (int i = 0; i < centerPapers.Length; i++)
             {
                 var paper = centerPapers[i];
@@ -120,6 +121,7 @@ namespace SugarpaperGame
             Sequence sequence = DOTween.Sequence();
             sequence.Append(paper.transform.DOMove(targetPosition, 0.1f).SetEase(moveEase));
             sequence.Append(paper.transform.DOScale(-0.1f, 0.1f).SetEase(scaleEase).SetRelative());
+            sequence.AppendCallback(() => SoundManager.Instance.PlaySFX("PaperSFX", 1f));
             sequence.Append(paper.transform.DOScale(0.1f, 0.1f).SetEase(scaleEase).SetRelative());
             sequence.OnComplete(() =>
             {
@@ -139,6 +141,7 @@ namespace SugarpaperGame
 
             paper.transform.DOComplete();
             paper.transform.DOPunchPosition(targetDirection * 0.3f, 0.2f, 30, 0.5f).SetEase(shakeEase);
+            SoundManager.Instance.PlaySFX("PaperErrorSFX", 1f);
         }
 
         private Paper.DIRECTION GetAnswer(float x, float y)
