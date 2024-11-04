@@ -9526,6 +9526,34 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8162488182356815045, guid: 817e8054f8f91364eb76e1f619cdf089, type: 3}
+      propertyPath: onEnd.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162488182356815045, guid: 817e8054f8f91364eb76e1f619cdf089, type: 3}
+      propertyPath: onEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162488182356815045, guid: 817e8054f8f91364eb76e1f619cdf089, type: 3}
+      propertyPath: onEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1501102559}
+    - target: {fileID: 8162488182356815045, guid: 817e8054f8f91364eb76e1f619cdf089, type: 3}
+      propertyPath: onEnd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162488182356815045, guid: 817e8054f8f91364eb76e1f619cdf089, type: 3}
+      propertyPath: onEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_IsGameStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162488182356815045, guid: 817e8054f8f91364eb76e1f619cdf089, type: 3}
+      propertyPath: onEnd.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SugarpaperGame.SugarPaperGame, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162488182356815045, guid: 817e8054f8f91364eb76e1f619cdf089, type: 3}
+      propertyPath: onEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
