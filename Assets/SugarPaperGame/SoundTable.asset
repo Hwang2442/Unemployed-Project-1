@@ -12,3 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceac91650cee3cf4ba626988b326f01f, type: 3}
   m_Name: SoundTable
   m_EditorClassIdentifier: 
+  sounds:
+  - key: PaperBGM
+    clip: {fileID: 8300000, guid: c358806b9c526734bacce894ae724bff, type: 3}
+  - key: PaperSFX
+    clip: {fileID: 8300000, guid: 92da6cf56742a4d44b117e647a173ee1, type: 3}
+  - key: PaperBonusSFX
+    clip: {fileID: 8300000, guid: 464e28bc66560487d8b0a65dd0a363ed, type: 3}
+  - key: PaperErrorSFX
+    clip: {fileID: 8300000, guid: dfe5d2def8f0f47e58ba1e0d096317ff, type: 3}
