@@ -30,9 +30,12 @@ namespace SugarpaperGame
         private KeyCode[] keyCodes = new KeyCode[] { KeyCode.UpArrow, KeyCode.RightArrow, KeyCode.DownArrow, KeyCode.LeftArrow };
         private Vector2[] keyDirs = new Vector2[] { Vector2.up, Vector2.right, Vector2.down, Vector2.left };
 
+        public bool IsGameStart { get; set; }
+
         private void Start()
         {
-            SoundManager.Instance.PlayBGM("PaperBGM", 0.5f);
+            IsGameStart = true;
+            SoundManager.Instance.PlayBGM("PaperBGM", 0.3f);
 
             for (int i = 0; i < centerPapers.Length; i++)
             {
@@ -46,6 +49,9 @@ namespace SugarpaperGame
 
         private void Update()
         {
+            if (!IsGameStart)
+                return;
+
 #if UNITY_EDITOR
             KeyboardInput();
 #endif
