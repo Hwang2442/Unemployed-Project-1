@@ -115,21 +115,14 @@ public class MoleGameManager : MonoBehaviour
 
     private IEnumerator TimerCountDown()
     {
-        int previousSconds = -1;
-        int previousHundredths = -1;
         float inGameTime = startingTime;
-        float timeremaining = startingTime * 0.2f;
+        float timeremaining = startingTime * 0.1f;
 
         while (inGameTime > 0)
         {
-            int seconds = Mathf.FloorToInt(inGameTime % 60);
-            int hundredths = Mathf.FloorToInt((inGameTime * 100) % 100);
-            if (seconds != previousSconds || hundredths != previousHundredths)
-            {
-                timeText.text = string.Format("{0:00}:{1:00}", seconds, hundredths);
-                previousSconds = seconds;
-                previousHundredths = hundredths;
-            }
+            int seconds = (int)inGameTime % 60;
+            int hundredths = (int)((inGameTime * 60) % 60);
+            timeText.text = string.Format("{0:00}:{1:00}", seconds, hundredths);
 
             timeSlider.value = inGameTime;
 
@@ -138,8 +131,8 @@ public class MoleGameManager : MonoBehaviour
                 timeSliderFill.sprite = timeOverSliderFillSprite;
             }
 
-            yield return null;
             inGameTime -= Time.deltaTime;
+            yield return null;
 
             if (inGameTime <= 0)
             {
